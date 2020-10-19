@@ -10,7 +10,7 @@ defmodule RedexDemoWeb.Endpoint do
     signing_salt: "RhPjI6Ee"
   ]
 
-  socket "/socket", RedexDemoWeb.UserSocket,
+  socket "/redex", RedexDemoWeb.RedexSocket,
     websocket: true,
     longpoll: false
 

@@ -13,12 +13,15 @@ defmodule RedexDemoWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/login",  RedexDemoWeb do
+  # this is for login page, and logging out.
+  scope "/",  RedexDemoWeb do
     pipe_through :browser
-    get "/", LoginController, :index
-    post "/", LoginController, :login
+    get "/login", LoginController, :index
+    post "/login", LoginController, :login
+    post "/logout", LoginController, :logout
   end
 
+  # this is to server the react app at every other path - delegating the routing to the front end.
   scope "/", RedexDemoWeb do
     pipe_through :browser
     get "/*app", AppController, :index

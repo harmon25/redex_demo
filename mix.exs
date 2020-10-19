@@ -46,7 +46,7 @@ defmodule RedexDemo.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:redex, github: "harmon25/redex"},
-
+      {:jsonpatch, "~> 0.9.1"}
     ]
   end
 

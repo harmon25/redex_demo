@@ -128,8 +128,6 @@
 }
 
  </style>
-
-
   <body>
       <%= @inner_content %>
   </body>
