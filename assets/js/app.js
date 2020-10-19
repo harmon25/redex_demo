@@ -15,10 +15,7 @@ import "../css/app.scss";
 // import "phoenix_html"
 
 import { render } from "react-dom";
-
-const App = () => {
-  return <div> HI FROM REACT</div>;
-};
+import { App } from "./components/App";
 
 const root = document.getElementById("react-root");
 render(<App />, root);

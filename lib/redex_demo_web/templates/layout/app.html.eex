@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="csrf" content="<%= get_csrf_token() %>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>RedexDemo · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-
-<style>
-/* Absolute Center Spinner */
+  </head>
+  <style>
 .loading {
   position: fixed;
   z-index: 999;
@@ -23,7 +22,6 @@
   right: 0;
 }
 
-/* Transparent Overlay */
 .loading:before {
   content: '';
   display: block;
@@ -130,7 +128,8 @@
 }
 
  </style>
-  </head>
+
+
   <body>
       <%= @inner_content %>
   </body>

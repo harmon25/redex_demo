@@ -1,0 +1,5 @@
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+<div id="react-root">
+  <div class="loading">Loading&#8230;</div>
+</div>

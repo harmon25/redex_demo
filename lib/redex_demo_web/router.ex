@@ -13,10 +13,15 @@ defmodule RedexDemoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/login",  RedexDemoWeb do
+    pipe_through :browser
+    get "/", LoginController, :index
+    post "/", LoginController, :login
+  end
+
   scope "/", RedexDemoWeb do
     pipe_through :browser
-
-    get "/", PageController, :index
+    get "/*app", AppController, :index
   end
 
   # Other scopes may use custom stacks.
