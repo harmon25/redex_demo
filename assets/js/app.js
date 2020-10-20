@@ -6,19 +6,24 @@ import { App } from "./components/App";
 import { Redex } from "./redex";
 import { RedexProvider } from "./redex-hooks";
 
-
 const root = document.getElementById("react-root");
 const username = root.dataset["user"];
 
-const defaultState = {counter: 0}
+// create onReady callback that is invoked once socket + channel is connected 
+function onReady(redexInstance) {
+  render(
+    <RedexProvider redex={redexInstance}>
+      <App username={username} />
+    </RedexProvider>,
+    root
+  );
+}
 
-const redex = new Redex({Socket, token: username, defaultState})
+// wait till Redex is ready
+const redex = new Redex({
+  Socket,
+  token: username,
+  onReady,
+});
 
-window.REDEX = redex
-
-render(
-  <RedexProvider redex={redex}>
-    <App username={username} />
-  </RedexProvider>,
-  root
-);
+window.REDEX = redex;

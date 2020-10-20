@@ -19,6 +19,7 @@ export const RedexProvider = ({ redex, children }) => {
   );
 };
 
+// https://gist.github.com/bvaughn/e25397f70e8c65b0ae0d7c90b731b189
 // Hook used for safely managing subscriptions in concurrent mode.
 //
 // In order to avoid removing and re-adding subscriptions each time this hook is called,

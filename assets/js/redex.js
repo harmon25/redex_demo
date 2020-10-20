@@ -2,7 +2,7 @@ import { applyPatch, deepClone } from "fast-json-patch";
 
 // just like a redux store - should only be one instance of Redex on a page...
 export class Redex extends EventTarget {
-  constructor({ Socket, token = "", defaultState = {} }) {
+  constructor({ Socket, token = "", defaultState = {}, onReady = (redexInstance) => {} }) {
     // represents the 'view' into the server state - is what the patches are applied against...
     super();
     this.state = defaultState;
@@ -10,7 +10,14 @@ export class Redex extends EventTarget {
     this.channelPrefix = "__redex";
     this.socket = new Socket("/redex", { params: { token } });
     this.socket.connect();
+    this.onReady = onReady;
     this.__initChannel(token);
+
+    // bind to this...
+    this.__onDiff.bind(this);
+    this.__onJoin.bind(this);
+    this.getState.bind(this);
+    this.dispatch.bind(this);
   }
 
   __initChannel(token) {
@@ -31,6 +38,8 @@ export class Redex extends EventTarget {
     // sets state from server after join - dispatch change event to trigger.
     this.state = resp;
     this.dispatchEvent(this.changeEvt);
+    // pass this redex instance into onReady to pass 
+    this.onReady(this)
   }
 
   getState() {

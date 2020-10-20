@@ -38,17 +38,16 @@ export const App = ({ username }) => {
   const [hidden, setHidden] = useState(false);
 
   const handleHideClick = () => {
-    setHidden((hidden) => !hidden)
+    setHidden((hidden) => !hidden);
   };
+
+  const handleAdd = () => {
+    dispatch({ type: "add", payload: 10 });
+  };
+
   return (
     <div>
-      <span
-        onClick={() => {
-          dispatch({ type: "add", payload: 10 });
-        }}
-      >
-        HI FROM REACT {username}{" "}
-      </span>
+      <span onClick={handleAdd}>HI FROM REACT {username} </span>
       <button onClick={handleHideClick}> {hidden ? "UNHIDE" : "HIDE"} </button>
       {!hidden ? (
         <div>
