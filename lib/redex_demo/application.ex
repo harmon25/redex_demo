@@ -8,7 +8,7 @@ defmodule RedexDemo.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      RedexDemo.Repo,
+     # RedexDemo.Repo,
       # Start the Telemetry supervisor
       RedexDemoWeb.Telemetry,
       # Start the PubSub system
