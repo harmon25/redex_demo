@@ -2,9 +2,10 @@ import { applyPatch, deepClone } from "fast-json-patch";
 
 // just like a redux store - should only be one instance of Redex on a page...
 export class Redex extends EventTarget {
-  constructor({ Socket, token = "", defaultState = {}, onReady = (redexInstance) => {} }) {
+  constructor({ Socket, token = "", defaultState = {}, extraStores = [], onReady = (redexInstance) => {} }) {
     // represents the 'view' into the server state - is what the patches are applied against...
     super();
+    this.channels = [];
     this.state = defaultState;
     this.changeEvt = new Event("change", { cancelable: true });
     this.channelPrefix = "__redex";
@@ -21,11 +22,13 @@ export class Redex extends EventTarget {
   }
 
   __initChannel(token) {
-    this.channel = this.socket.channel(`${this.channelPrefix}:${token}`, {
+    let channel = this.socket.channel(`${this.channelPrefix}:${token}`, {
       token,
     });
-    this.channel.join().receive("ok", this.__onJoin.bind(this));
-    this.channel.on("diff", this.__onDiff.bind(this));
+    channel.join().receive("ok", this.__onJoin.bind(this));
+    channel.on("diff", this.__onDiff.bind(this));
+    this.channels.push(channel)
+
   }
 
   __onDiff({ diff }) {
@@ -47,6 +50,8 @@ export class Redex extends EventTarget {
   }
 
   dispatch(action) {
-    this.channel.push("dispatch", action);
+    for(let i = 0; i < this.channels.length; i ++){
+      this.channels[i].push("dispatch", action);
+    }
   }
 }

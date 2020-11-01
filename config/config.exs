@@ -10,6 +10,10 @@ use Mix.Config
 config :redex_demo,
   ecto_repos: [RedexDemo.Repo]
 
+config :redex,
+  user_store: Demo.Store,
+  shared_stores: %{"shared_conter" => Demo.SharedStore }
+
 # Configures the endpoint
 config :redex_demo, RedexDemoWeb.Endpoint,
   url: [host: "localhost"],
